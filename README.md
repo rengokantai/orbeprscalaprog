@@ -155,3 +155,75 @@ mutalbe.LinkedHashMap[Int,String]().put(1,"foo").remove(1)
 list.
 #####5
 ######1 Do not pattern match for all statements
+```
+def myfunc(input:Int):Boolean = input match{
+  case 0|1 => true
+  case _ => false
+}
+```
+modify
+```
+def myfunc(input:Int):Int = input.isEmpty match{  //change here. input.isEmpty
+  case true => 0
+  case false => input+1
+}
+```
+######2 cover all outcomes of a pattern match
+```
+def myfunc(input: Option[String]): Boolean=input match{
+  case Some("foo") => false
+  case Some("bar") => true
+  caee Some(in) => in
+  case None => "None"
+}
+
+```
+######3 prefer value matches over guards
+```
+case class Foo(f1:Int,f2:String)
+def myfunc(input:Foo):Boolean=input match{
+  case Foo(f1,f2)if f1==0 && f2==""=>true    // case Foo(0,"")=>true
+  case _ => false
+}
+```
+######4 prefer to map filter over an option rather than pattern matching.
+```
+def myfunc(input Option[String]):Option[Int] = input match{
+  case Some(in) if!in.trim.isEmpty=>Some(in.length)
+  case _ => None
+}
+```
+better:
+```
+def myfunc(input Option[String]):Option[Int] = {
+  input.filter(_.nonEmpty).map(_.length)
+}
+```
+######5 Prefer type matching to type casting
+```
+def myfinc(input:Any):String={
+  input.asInstanceOf[String]  //cast to String.
+}
+def main(args:Array[String]):Unit={
+  try{myfinc(3)}  //will throw an error
+  catch{
+  case e : Throwable=>a.printStackTrace()
+  }
+}
+```
+add logic
+```
+def myfinc(input:Any):Option[String]={
+if(input.isInstanceOf[String]){
+  Some(input.asInstanceOf[String])  //cast to String.
+}else{
+None
+}
+```
+pattern matching
+```
+def myfinc(input:Any):Option[String]={
+  case in: String=>Some(in)
+  case _=>None
+}
+```
