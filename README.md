@@ -50,3 +50,54 @@ def myfunc1(input: List[Foo]):Int={
   input.map(i=>i.i).filter(i=>i%2==0).sum
 }
 ```
+#####3
+######1storing defs inside of vars
+```
+var f : String=>String = input=>input.toLowerCase
+
+def myfunc(input:String):String={
+  if(input.length%2==0){
+    f=input=>input.toUpperCase
+  }
+  f(input)
+}
+
+def myfunc2(input:String):String={
+  var convertor: String=>String=input=>input.toLowerCase
+    if(input.length%2==0){
+    convertor=input=>input.toUpperCase
+  }
+  convertor(input)
+}
+```
+######2 storing functions in lists and maps
+```
+val strings = List("bar","foo"
+)
+//Not good
+def filter(input:List[String]):List[String]={
+  input.filterNot(_.contains("f")).filterNot(_.length%2==0)
+}
+def main(arg:Array[String]):Unit={
+println(filter(strings))
+}
+```
+list filters: (anoy function)
+```
+val filters:List[String=>Boolean]=List(
+_.contains("f"),
+_.length%2==0
+)
+def filter2(input:List[String]):List[String]={
+  filters.foldLeft(input)((i,f)=>i.filterNot(f))
+}
+```
+non-anoy function
+```
+def a(input:String):Boolean = input.contains("f")
+def b(input:String):Boolean = input.length%2==0
+var filters2:List[String=>Boolean]=List(
+a,
+b
+)
+```
