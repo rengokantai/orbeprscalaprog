@@ -144,3 +144,14 @@ def myfunc4(input:String,count:Int)(implicit predicate:Int=>Boolean):List[String
   ).toList
 }
 ```
+#####4
+######1 mutable data structures
+```
+import scala.collection.mutable
+mutable.ListBuffer[String]().append("foo"),remove(mutableList.indexOf("foo"))
+mutalbe.LinkedHashMap[Int,String]().put(1,"foo").remove(1)
+```
+######2 immutable data structures
+list.
+#####5
+######1 Do not pattern match for all statements
