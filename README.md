@@ -101,3 +101,46 @@ a,
 b
 )
 ```
+######3 abstract function bodies
+```
+def myfunc(input:String,count:Int):List[String]={
+  (for(i<- 0 until count) yield{
+  if(i%2==0){
+    input.toUpperCase
+    }
+  }).toList
+}
+//using map
+def myfunc2(input:String,count:Int):List[String]={
+  (0 until count).map(i=>
+  if(i%2==0){
+    input.toUpperCase
+    }
+  ).toList
+}
+def main(args:Array[String]):Unit={
+  println(myfunc("hello",2))
+}
+
+```
+abstract predicate:
+```
+def myfunc2(input:String,count:Int,predicate:Int=>Boolean i=>i%2==0):List[String]={
+  (0 until count).map(i=>
+  if(predicate){
+    input.toUpperCase
+    }
+  ).toList
+}
+```
+or using implicit predicate
+```
+implicit val predicate:Int=>Boolean = i=>i%2==0
+def myfunc4(input:String,count:Int)(implicit predicate:Int=>Boolean):List[String]={
+  (0 until count).map(i=>
+  if(predicate){
+    input.toUpperCase
+    }
+  ).toList
+}
+```
